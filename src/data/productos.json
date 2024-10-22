@@ -1,0 +1,142 @@
+[
+     {
+          "id": 1,
+          "title": "Smartphone X12",
+          "description": "A high-end smartphone with a powerful processor and excellent camera.",
+          "code": "SMX12-2024",
+          "price": 799.99,
+          "status": true,
+          "stock": 150,
+          "category": "Electronics",
+          "thumbnails": [
+               "/images/products/smartphone_x12_front.jpg",
+               "/images/products/smartphone_x12_back.jpg"
+          ]
+     },
+     {
+          "id": 2,
+          "title": "Wireless Headphones Pro",
+          "description": "Noise-cancelling wireless headphones with deep bass and long battery life.",
+          "code": "WHPro-2024",
+          "price": 199.99,
+          "status": true,
+          "stock": 300,
+          "category": "Accessories",
+          "thumbnails": [
+               "/images/products/headphones_pro_front.jpg",
+               "/images/products/headphones_pro_side.jpg"
+          ]
+     },
+     {
+          "id": 3,
+          "title": "Laptop Pro 15",
+          "description": "A lightweight laptop with a stunning display and top-notch performance.",
+          "code": "LPPro15-2024",
+          "price": 1299.99,
+          "status": true,
+          "stock": 50,
+          "category": "Computers",
+          "thumbnails": [
+               "/images/products/laptop_pro15_open.jpg",
+               "/images/products/laptop_pro15_closed.jpg"
+          ]
+     },
+     {
+          "id": 4,
+          "title": "4K Ultra HD Smart TV",
+          "description": "A 65-inch smart TV with 4K resolution and built-in streaming apps.",
+          "code": "TV65UHD-2024",
+          "price": 899.99,
+          "status": true,
+          "stock": 80,
+          "category": "Home Entertainment",
+          "thumbnails": [
+               "/images/products/tv_uhd_65_front.jpg",
+               "/images/products/tv_uhd_65_side.jpg"
+          ]
+     },
+     {
+          "id": 5,
+          "title": "Gaming Console Pro",
+          "description": "Next-gen gaming console with ultra-fast loading and stunning graphics.",
+          "code": "GCPro-2024",
+          "price": 499.99,
+          "status": false,
+          "stock": 0,
+          "category": "Gaming",
+          "thumbnails": [
+               "/images/products/console_pro_front.jpg",
+               "/images/products/console_pro_side.jpg"
+          ]
+     },
+     {
+          "id": 6,
+          "title": "Smartphone X12",
+          "description": "A high-end smartphone with a powerful processor and excellent camera.",
+          "code": "SMX12-2024",
+          "price": 799.99,
+          "status": true,
+          "stock": 150,
+          "category": "Electronics",
+          "thumbnails": [
+               "/images/products/smartphone_x12_front.jpg",
+               "/images/products/smartphone_x12_back.jpg"
+          ]
+     },
+     {
+          "id": 7,
+          "title": "Wireless Headphones Pro",
+          "description": "Noise-cancelling wireless headphones with deep bass and long battery life.",
+          "code": "WHPro-2024",
+          "price": 199.99,
+          "status": true,
+          "stock": 300,
+          "category": "Accessories",
+          "thumbnails": [
+               "/images/products/headphones_pro_front.jpg",
+               "/images/products/headphones_pro_side.jpg"
+          ]
+     },
+     {
+          "id": 8,
+          "title": "Laptop Pro 15",
+          "description": "A lightweight laptop with a stunning display and top-notch performance.",
+          "code": "LPPro15-2024",
+          "price": 1299.99,
+          "status": true,
+          "stock": 50,
+          "category": "Computers",
+          "thumbnails": [
+               "/images/products/laptop_pro15_open.jpg",
+               "/images/products/laptop_pro15_closed.jpg"
+          ]
+     },
+     {
+          "id": 9,
+          "title": "4K Ultra HD Smart TV",
+          "description": "A 65-inch smart TV with 4K resolution and built-in streaming apps.",
+          "code": "TV65UHD-2024",
+          "price": 899.99,
+          "status": true,
+          "stock": 80,
+          "category": "Home Entertainment",
+          "thumbnails": [
+               "/images/products/tv_uhd_65_front.jpg",
+               "/images/products/tv_uhd_65_side.jpg"
+          ]
+     },
+     {
+          "id": 10,
+          "title": "Gaming Console Pro",
+          "description": "Next-gen gaming console with ultra-fast loading and stunning graphics.",
+          "code": "GCPro-2024",
+          "price": 499.99,
+          "status": false,
+          "stock": 0,
+          "category": "Gaming",
+          "thumbnails": [
+               "/images/products/console_pro_front.jpg",
+               "/images/products/console_pro_side.jpg"
+          ]
+     }
+]

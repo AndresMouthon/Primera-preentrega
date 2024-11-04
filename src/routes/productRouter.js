@@ -2,7 +2,7 @@ import { Router } from "express";
 import { ProductManager } from "../dao/ProductManager.js";
 import { procesaErrores } from "../utils/utils.js";
 
-export const router = Router()
+export const router = Router();
 
 ProductManager.setPath("./src/data/productos.json");
 

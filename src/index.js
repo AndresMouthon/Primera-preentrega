@@ -1,11 +1,14 @@
 import express from 'express';
 import { engine } from "express-handlebars";
+// import { config } from 'process';
 import { Server } from "socket.io";
+import { config } from './config/config.js';
+import { conectarDB } from './connDB.js';
 import { router as carRouter } from './routes/carRouter.js';
 import { router as productsRouter } from './routes/productRouter.js';
 import { router as vistasRouter } from './routes/vistasRouter.js';
 
-const PORT = 8080;
+const PORT = config.PORT;
 
 const app = express();
 
@@ -42,3 +45,5 @@ io.on('connection', socket => {
         io.emit('refreshDelete');
     });
 });
+
+conectarDB(config.MONGO_URL, config.DB_NAME)

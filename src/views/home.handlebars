@@ -1,23 +1,29 @@
 <nav style="background-color: #333; padding: 10px; display: flex; align-items: center; justify-content: space-between;">
     <h1 style="color: white; margin: 0;">MANDOSED</h1>
     {{#if hasPrevPage}}
-    <a href="/?page={{prevPage}}">Pág.Prev.</a>
-    {{else}}
-    <a href="/?page={{prevPage}}" class="disabled">Pág.Prev.</a>
+    <a href="/?page={{prevPage}}"
+        style="color: white; text-decoration: none; padding: 10px; border: 1px solid white; border-radius: 5px; transition: background-color 0.3s;">Pág.Prev.</a>
     {{/if}}
 
     {{#if hasNextPage}}
-    <a href="/?page={{nextPage}}">Pág.Sig.</a>
-    {{else}}
-    <a href="/?page={{nextPage}}" class="disabled">Pág.Sig.</a>
+    <a href="/?page={{nextPage}}"
+        style="color: white; text-decoration: none; padding: 10px; border: 1px solid white; border-radius: 5px; transition: background-color 0.3s;">Pág.Sig.</a>
     {{/if}}
 
-    <button type="button" onclick="finishPurchase()">
+    <button type="button" onclick="finishPurchase()"
+        style="cursor: pointer; color: blue; text-decoration: none; padding: 10px; border: 1px solid white; border-radius: 5px; transition: background-color 0.3s;">
         Finalizar compra
     </button>
 </nav>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div
+        style="background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); margin: 10px; padding: 16px; width: calc(25% - 20px); text-align: center;">
+        <h2 style="font-size: 20px; margin: 10px 0;">Carritos</h2>
+        {{#each carritos}}
+        <a href="/carrito/{{id}}" style="display: block; margin: 10px 0; text-decoration: none; color: blue; cursor: pointer; transition: color 0.3s; font-weight: bold;">Ver carrito {{id}}</a>
+        {{/each}}
+    </div>
     {{#each products}}
     <div
         style="background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); margin: 10px; padding: 16px; width: calc(25% - 20px); text-align: center;">

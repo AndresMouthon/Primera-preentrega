@@ -3,6 +3,10 @@ import { carsModelo } from './models/carsModel.js';
 import { productsModelo } from './models/productsModel.js';
 
 export class CarManagerMongo {
+    static async getCars() {
+        const carritos = await carsModelo.find().lean();
+        return carritos;
+    }
     static async deleteCar(idCarrito, idProducto) {
         const carrito = await carsModelo.findOne({ "id": idCarrito });
         const producto = await productsModelo.findOne({ "id": idProducto });
@@ -107,7 +111,7 @@ export class CarManagerMongo {
             { "id": idCarrito },
         ).populate({
             path: "producto.product",
-        });
+        }).lean();
         if (!carrito) {
             return {
                 status: "error",

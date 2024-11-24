@@ -3,7 +3,10 @@ import paginate from "mongoose-paginate-v2";
 
 const carsEsquema = new mongoose.Schema(
     {
-        id: Number,
+        id: {
+            type: Number,
+            unique: true
+        },
         producto: {
             type: [
                 {

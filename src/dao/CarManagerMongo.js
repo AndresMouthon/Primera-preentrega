@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { carsModelo } from './models/carsModel.js';
 import { productsModelo } from './models/productsModel.js';
 
@@ -115,5 +116,45 @@ export class CarManagerMongo {
         }
         return carrito;
     };
-    
+
+    static async finalizarCompra(productsIds) {
+        console.log('Productos recibidos:', productsIds);
+
+        try {
+            const productosIdsArray = productsIds.carrito;
+
+            if (!Array.isArray(productosIdsArray)) {
+                return { success: false, message: 'El formato de los productos es incorrecto.' };
+            }
+
+            const objectIds = productosIdsArray.map(id => new mongoose.Types.ObjectId(id));
+
+            const productos = await productsModelo.find({
+                _id: { $in: objectIds }
+            });
+
+            if (productos.length !== productosIdsArray.length) {
+                return { success: false, message: 'Algunos productos no fueron encontrados' };
+            }
+
+            const lastCarrito = await carsModelo.findOne().sort({ id: -1 });
+            const nuevoCarritoId = lastCarrito ? lastCarrito.id + 1 : 1;
+
+            const nuevoCarrito = new carsModelo({
+                id: nuevoCarritoId,
+                producto: productos.map((producto, index) => ({
+                    product: producto._id,
+                    quantity: 1,
+                }))
+            });
+
+            await nuevoCarrito.save();
+
+            return { success: true, message: 'Carrito creado correctamente', carrito: nuevoCarrito };
+        } catch (error) {
+            console.error('Error al añadir productos al carrito:', error);
+            return { success: false, message: 'Error al crear el carrito' };
+        }
+    };
+
 }

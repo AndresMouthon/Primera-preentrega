@@ -4,8 +4,6 @@ export class ProductManagerMongo {
     static async get(page = 1, limit = 10, query = null, sort = 'asc') {
         const sortOption = sort === 'desc' ? { price: -1 } : { price: 1 };
         let result = null;
-        console.log("query:", query);
-        
         try {
             if (query) {
                 result = await productsModelo.paginate(
@@ -28,10 +26,10 @@ export class ProductManagerMongo {
                     }
                 )
             }
-            console.log(result);
             return result;
         } catch (error) {
             console.error('Error al obtener productos:', error);
         }
-    }
+    };
+
 }

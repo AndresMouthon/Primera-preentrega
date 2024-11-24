@@ -98,3 +98,11 @@ router.get("/:cid", async (req, res) => {
         procesaErrores(res, error)
     }
 });
+
+router.post("/finalizar-compra", async (req, res) => {
+    const carrito = await CarManagerMongo.finalizarCompra(req.body);
+    if (carrito.status === "error") {
+        return res.status(404).json({ Error: carrito.message });
+    }
+    return res.status(200).json({ success: true, message: 'Compra procesada exitosamente' });
+});

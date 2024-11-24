@@ -27,7 +27,7 @@
         <p style="color: green;">En stock: {{stock}}</p>
         <p style="margin: 0;">Código: {{code}}</p>
         <p style="margin: 0;">Categoría: {{category}}</p>
-        <button onclick="addToCart('{{id}}', '{{title}}', '{{price}}', '{{_id}}')"
+        <button type="button" onclick="addToCart('{{_id}}')"
             style="background-color: #333; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; transition: background-color 0.3s;">
             Agregar al carrito
         </button>
@@ -36,31 +36,64 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-    import { ProductManagerMongo } from '../../dao/ProductManagerMongo.js';
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-    function addToCart(id, title, price, _id) {
-        const product = { id, title, price, _id };
-        carrito.push(product);
+    function addToCart(id) {
+        carrito.push(id);
+        console.log(carrito);
         localStorage.setItem('carrito', JSON.stringify(carrito));
         Swal.fire({
-            title: 'Producto agregado!',
-            text: 'El producto se ha añadido a tu carrito.',
+            position: 'top-end',
             icon: 'success',
-            confirmButtonText: 'Aceptar'
+            title: 'Producto agregado al carrito',
+            showConfirmButton: false,
+            timer: 1500
         });
     }
-
     function finishPurchase() {
-        Swal.fire({
-            title: 'Compra finalizada!',
-            text: `El total de tu compra es: $${total}`,
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-        });
-        carrito = [];
-        localStorage.setItem('carrito', JSON.stringify(carrito));
+        if (carrito.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay productos en el carrito',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
+        fetch('http://localhost:8080/api/carts/finalizar-compra', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ carrito })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Compra exitosa',
+                        text: '¡Gracias por tu compra!',
+                        showConfirmButton: true
+                    });
+                    localStorage.removeItem('carrito');
+                    carrito = [];
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al procesar la compra',
+                        text: data.message || 'Hubo un problema con el procesamiento de tu compra.',
+                        showConfirmButton: true
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al procesar la compra',
+                    text: 'Hubo un problema al conectarse con el servidor.',
+                    showConfirmButton: true
+                });
+            });
     }
 </script>

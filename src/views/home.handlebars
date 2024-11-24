@@ -5,17 +5,16 @@
     {{else}}
     <a href="/?page={{prevPage}}" class="disabled">Pág.Prev.</a>
     {{/if}}
-    
+
     {{#if hasNextPage}}
     <a href="/?page={{nextPage}}">Pág.Sig.</a>
     {{else}}
     <a href="/?page={{nextPage}}" class="disabled">Pág.Sig.</a>
     {{/if}}
 
-    <a href="/realtimeproducts"
-        style="color: white; text-decoration: none; padding: 10px; border: 1px solid white; border-radius: 5px; transition: background-color 0.3s;">
-        Productos en tiempo real
-    </a>
+    <button type="button" onclick="finishPurchase()">
+        Finalizar compra
+    </button>
 </nav>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
@@ -28,6 +27,40 @@
         <p style="color: green;">En stock: {{stock}}</p>
         <p style="margin: 0;">Código: {{code}}</p>
         <p style="margin: 0;">Categoría: {{category}}</p>
+        <button onclick="addToCart('{{id}}', '{{title}}', '{{price}}', '{{_id}}')"
+            style="background-color: #333; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; transition: background-color 0.3s;">
+            Agregar al carrito
+        </button>
     </div>
     {{/each}}
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    import { ProductManagerMongo } from '../../dao/ProductManagerMongo.js';
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function addToCart(id, title, price, _id) {
+        const product = { id, title, price, _id };
+        carrito.push(product);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        Swal.fire({
+            title: 'Producto agregado!',
+            text: 'El producto se ha añadido a tu carrito.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        });
+    }
+
+    function finishPurchase() {
+        Swal.fire({
+            title: 'Compra finalizada!',
+            text: `El total de tu compra es: $${total}`,
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        });
+        carrito = [];
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+</script>

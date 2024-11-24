@@ -2,8 +2,6 @@ import { Router } from 'express';
 import { ProductManagerMongo } from '../dao/ProductManagerMongo.js';
 
 export const router = Router();
-
-// const getProducts = async () => {
 //     try {
 //         const response = await axios.get('http://localhost:8080/api/products/');
 //         return response.data;

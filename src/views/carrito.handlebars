@@ -1,0 +1,22 @@
+<nav style="background-color: #333; padding: 10px; display: flex; align-items: center; justify-content: space-between;">
+    <h1 style="color: white; margin: 0;">MANDOSED</h1>
+    <a href="/" style="color: white; text-decoration: none; padding: 10px; border: 1px solid white; border-radius: 5px; transition: background-color 0.3s;">
+        Regresar
+    </a>
+</nav>
+<h1>carrito</h1>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; padding: 30px;">
+    {{#each productos}}
+    <div style="background-color: #fff; border-radius: 10px; width: 280px; margin: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+        <div style="padding: 20px;">
+            <h2 style="font-size: 20px; color: #333; margin-bottom: 10px; font-weight: 600;">
+                {{title}}
+            </h2>
+            <p style="font-size: 14px; color: #777; margin-bottom: 15px; line-height: 1.5;">
+                {{description}}
+            </p>
+            <p style="font-size: 18px; color: #333; font-weight: bold;">$ {{price}}</p>
+        </div>
+    </div>
+    {{/each}}
+</div>

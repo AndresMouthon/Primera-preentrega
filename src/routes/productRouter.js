@@ -1,28 +1,28 @@
 import { Router } from "express";
-import { ProductManager } from "../dao/ProductManager.js";
+import { ProductManagerMongo } from "../dao/ProductManagerMongo.js";
 import { procesaErrores } from "../utils/utils.js";
 
 export const router = Router();
 
-ProductManager.setPath("./src/data/productos.json");
-
 router.get("/", async (req, res) => {
-    let { limit } = req.query;
-    try {
-        let productos = await ProductManager.getProducts();
-        if (!limit) {
-            limit = productos.length
-        } else {
-            limit = Number(limit)
-            if (isNaN(limit)) {
-                return res.status(400).json({ Error: "el limit debe ser numérico" });
-            }
-        }
-        productos = productos.slice(0, limit)
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(200).json({ productos });
-    } catch (error) {
-        procesaErrores(res, error)
+    let { page, limit, sort, query } = req.query;
+    let products = await ProductManagerMongo.get(page, limit, query, sort);
+    products = {
+        products: products.docs,
+        ...products
+    };
+    delete products.docs;
+    res.setHeader('Content-Type', 'application/json');
+    if (products.products.length > 0) {
+        res.status(200).json({
+            status: "success",
+            payload: products
+        });
+    } else {
+        res.status(404).json({
+            status: "error",
+            payload: "No se encontraron productos"
+        });
     }
 });
 

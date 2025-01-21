@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import productsModelo from "./models/productsModel.js";
 
 export class ProductManagerMongo{
@@ -70,3 +71,40 @@ export class ProductManagerMongo{
     }
 
 } // fin HeroesDAO
+=======
+import { productsModelo } from './models/productsModel.js';
+
+export class ProductManagerMongo {
+    static async get(page = 1, limit = 10, query = null, sort = 'asc') {
+        const sortOption = sort === 'desc' ? { price: -1 } : { price: 1 };
+        let result = null;
+        try {
+            if (query) {
+                result = await productsModelo.paginate(
+                    { category: query },
+                    {
+                        limit,
+                        page,
+                        lean: true,
+                        sort: sortOption,
+                    }
+                )
+            } else {
+                result = await productsModelo.paginate(
+                    {},
+                    {
+                        limit,
+                        page,
+                        lean: true,
+                        sort: sortOption,
+                    }
+                )
+            }
+            return result;
+        } catch (error) {
+            console.error('Error al obtener productos:', error);
+        }
+    };
+
+}
+>>>>>>> 00fa4b2f39eb279628f51dee6b5ff0de1d39fecb

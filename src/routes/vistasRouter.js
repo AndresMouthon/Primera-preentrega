@@ -1,24 +1,34 @@
 import { Router } from 'express';
-import axios from 'axios';
+import { ProductManagerMongo } from '../dao/ProductManagerMongo.js';
+import { CarManagerMongo } from '../dao/CarManagerMongo.js';
 
 export const router = Router();
 
-const getProducts = async () => {
-    try {
-        const response = await axios.get('http://localhost:8080/api/products/');
-        return response.data.productos;
-    } catch (error) {
-        console.error('Error al obtener productos:', error);
-        return [];
-    }
-};
-
 router.get('/', async (req, res) => {
-    const products = await getProducts();
-    res.render("home", { products });
+    let { page, limit, sort, query } = req.query;
+    let { docs: prducts, totalPages, hasNextPage, hasPrevPage, prevPage, nextPage } = await ProductManagerMongo.get(page, limit, query, sort);
+    let carritos = await CarManagerMongo.getCars();
+    res.render("home", {
+        products: prducts,
+        totalPages,
+        hasNextPage,
+        hasPrevPage,
+        prevPage,
+        nextPage,
+        carritos
+    });
 });
 
-router.get('/realtimeproducts', async (req, res) => {
-    const products = await getProducts();
-    res.render("realTimeProducts", { products });
+router.get('/carrito/:id', async (req, res) => {
+    const carrito = await CarManagerMongo.getProductsByCarrito(req.params.id);
+
+    let productos = [];
+    carrito.producto.forEach(element => {
+        productos.push(element.product);
+    });
+    res.render("carrito", {
+        productos: productos
+    });
 });
+
+
